@@ -1,5 +1,3 @@
-# ARP_Spoofing_Detector
-
 # 🛡️ *ARP Spoofing Detector*
 
 A real-time **ARP spoofing detection tool** built using **Python** and **Scapy**, designed to monitor local network traffic and identify suspicious **IP ↔ MAC address changes** that indicate **ARP poisoning / Man-in-the-Middle (MITM) attacks**.
@@ -32,7 +30,7 @@ This tool detects such behavior by **observing ARP packets in real time**.
 
 ---
 
-## 🧠 How It Works
+## *How It Works*
 
 1. Listens on a specified network interface
 2. Captures packets using raw sockets
