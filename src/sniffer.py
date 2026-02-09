@@ -5,24 +5,38 @@ INTERFACE = "eth0"
 
 def packet_handler(packet):
     # We only care about ARP packets for now
-    if packet.haslayer(ARP):
-        arp_layer = packet[ARP]
+    if not packet.haslayer(ARP):
+        return
 
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    arp = packet[ARP]
 
-        src_ip = arp_layer.psrc
-        src_mac = arp_layer.hwsrc
-        dst_ip = arp_layer.pdst
-        dst_mac = arp_layer.hwdst
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        print(f"[{timestamp}] ARP Packet")
-        print(f"    Source IP : {src_ip}")
-        print(f"    Source MAC: {src_mac}")
-        print(f"    Target IP : {dst_ip}")
-        print(f"    Target MAC: {dst_mac}")
-        print("-" * 50)
+    src_ip = arp.psrc
+    src_mac = arp.hwsrc
+    dst_ip = arp.pdst
+    dst_mac = arp.hwdst
 
-print(f"[+] Starting packet sniffer on {INTERFACE}")
+# ARP Operation Type:
+     
+    if arp.op == 1:
+            arp_type = "REQUEST"
+            message = f"Who has {dst_ip}? Tell {src_ip}"
+    elif arp.op == 2:
+            arp_type = "REPLY"
+            message = f"{src_ip} is at {src_mac}"
+    else:
+            arp_type = "UNKNOWN"
+            message = "Unknown ARP operation"
+
+
+    print(f"[{timestamp}] ARP Packet {arp_type}")
+    print(f"    {message}")
+    print(f"    Target MAC : {dst_mac}")
+    print(f"    Target MAC: {dst_mac}")
+    print("-" * 50)
+
+print(f"[+] Listening on {INTERFACE}(ARP only)")
 sniff(iface=INTERFACE, prn=packet_handler, store=False)
 
 

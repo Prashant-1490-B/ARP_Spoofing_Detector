@@ -1,4 +1,4 @@
-from scapy.all import sniff
+from scapy.all import sniff, ARP
 import os
 
 def packet_callback(pkt):
