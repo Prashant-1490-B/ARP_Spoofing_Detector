@@ -26,9 +26,6 @@ print(f"[+] Starting packet sniffer on {INTERFACE}")
 sniff(iface=INTERFACE, prn=packet_handler, store=False)
 
 
-
-
-
 # sniff(
 #   iface = eth0,
 #   filter = "arp",
