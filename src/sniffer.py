@@ -3,51 +3,51 @@ from datetime import datetime
 
 INTERFACE = "eth0"
 
+# This is our memory (state)
+arp_table = {}
+
 def packet_handler(packet):
-    # We only care about ARP packets for now
     if not packet.haslayer(ARP):
         return
 
     arp = packet[ARP]
 
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # We only care about ARP replies for baselining
+    if arp.op != 2:
+        return
+
+    timestamp = datetime.now()
 
     src_ip = arp.psrc
     src_mac = arp.hwsrc
-    dst_ip = arp.pdst
-    dst_mac = arp.hwdst
 
-# ARP Operation Type:
-     
-    if arp.op == 1:
-            arp_type = "REQUEST"
-            message = f"Who has {dst_ip}? Tell {src_ip}"
-    elif arp.op == 2:
-            arp_type = "REPLY"
-            message = f"{src_ip} is at {src_mac}"
+    if src_ip not in arp_table:
+        # First time seeing this IP
+        arp_table[src_ip] = {
+            "mac": src_mac,
+            "first_seen": timestamp,
+            "last_seen": timestamp
+        }
+
+        print(f"[BASELINE] {src_ip} is at {src_mac}")
+
     else:
-            arp_type = "UNKNOWN"
-            message = "Unknown ARP operation"
+        # IP already known
+        known_mac = arp_table[src_ip]["mac"]
 
+        if src_mac == known_mac:
+            # Normal behavior
+            arp_table[src_ip]["last_seen"] = timestamp
+        else:
+            # Change detected (do NOT alert yet)
+            print("[CHANGE DETECTED]")
+            print(f"    IP        : {src_ip}")
+            print(f"    Old MAC   : {known_mac}")
+            print(f"    New MAC   : {src_mac}")
+            print("-" * 60)
 
-    print(f"[{timestamp}] ARP Packet {arp_type}")
-    print(f"    {message}")
-    print(f"    Target MAC : {dst_mac}")
-    print(f"    Target MAC: {dst_mac}")
-    print("-" * 50)
+            # Update last seen but keep old MAC for now
+            arp_table[src_ip]["last_seen"] = timestamp
 
-print(f"[+] Listening on {INTERFACE}(ARP only)")
+print(f"[+] Baseline engine started on {INTERFACE}")
 sniff(iface=INTERFACE, prn=packet_handler, store=False)
-
-
-# sniff(
-#   iface = eth0,
-#   filter = "arp",
-#   prn = callback_function,
-#   store = False
-# )
-
-# iface → which ear you listen with
-# filter → which sounds you care about
-# prn → what you do when you hear something
-# store → whether to save or discard
