@@ -1,6 +1,8 @@
 from scapy.all import sniff, ARP
 import os
 
+print("[+] Enviornment Check")
+
 def packet_callback(pkt):
     if pkt.haslayer(ARP):
         print("[+] Packet Captured")
