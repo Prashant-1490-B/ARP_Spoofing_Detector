@@ -1,5 +1,6 @@
 from scapy.all import sniff, ARP
 from datetime import datetime
+from defaultdict import defaultdic
 
 INTERFACE = "eth0"
 
