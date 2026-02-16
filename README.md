@@ -45,7 +45,7 @@ This tool detects such behavior by **observing ARP packets in real time**.
 
 ---
 
-# EXECUTION FLOW STEP-BY-STEP
+# EXECUTION FLOW 
 
 - Program starts.
 - main() creates objects.
