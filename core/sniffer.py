@@ -1,54 +1,75 @@
 from scapy.all import sniff, ARP
-from datetime import datetime
-from defaultdict import defaultdic
 
-INTERFACE = "eth0"
+class Sniffer:
+    def __init__(self, interface, engine):
+        self.interface = interface
+        self.engine = engine
 
-# This is our memory (state)
-arp_table = {}
+    def packet_handler(self, packet):
+        if packet.haslayer(ARP):
+            arp = packet[ARP]
+            if arp.op == 2:
+                ip = arp.psrc
+                mac = arp.hwsrc
+                self.engine.process_reply(ip, mac)
 
-def packet_handler(packet):
-    if not packet.haslayer(ARP):
-        return
+    def start(self):
+        print(f"[+] Listening on {self.interface}")
+        sniff(iface=self.interface, prn=self.packet_handler, store=False)
 
-    arp = packet[ARP]
 
-    # We only care about ARP replies for baselining
-    if arp.op != 2:
-        return
 
-    timestamp = datetime.now()
+# from scapy.all import sniff, ARP
+# from datetime import datetime
+# from defaultdict import defaultdic
 
-    src_ip = arp.psrc
-    src_mac = arp.hwsrc
+# INTERFACE = "eth0"
 
-    if src_ip not in arp_table:
-        # First time seeing this IP
-        arp_table[src_ip] = {
-            "mac": src_mac,
-            "first_seen": timestamp,
-            "last_seen": timestamp
-        }
+# # This is our memory (state)
+# arp_table = {}
 
-        print(f"[BASELINE] {src_ip} is at {src_mac}")
+# def packet_handler(packet):
+#     if not packet.haslayer(ARP):
+#         return
 
-    else:
-        # IP already known
-        known_mac = arp_table[src_ip]["mac"]
+#     arp = packet[ARP]
 
-        if src_mac == known_mac:
-            # Normal behavior
-            arp_table[src_ip]["last_seen"] = timestamp
-        else:
-            # Change detected (do NOT alert yet)
-            print("[CHANGE DETECTED]")
-            print(f"    IP        : {src_ip}")
-            print(f"    Old MAC   : {known_mac}")
-            print(f"    New MAC   : {src_mac}")
-            print("-" * 60)
+#     # We only care about ARP replies for baselining
+#     if arp.op != 2:
+#         return
 
-            # Update last seen but keep old MAC for now
-            arp_table[src_ip]["last_seen"] = timestamp
+#     timestamp = datetime.now()
 
-print(f"[+] Baseline engine started on {INTERFACE}")
-sniff(iface=INTERFACE, prn=packet_handler, store=False)
+#     src_ip = arp.psrc
+#     src_mac = arp.hwsrc
+
+#     if src_ip not in arp_table:
+#         # First time seeing this IP
+#         arp_table[src_ip] = {
+#             "mac": src_mac,
+#             "first_seen": timestamp,
+#             "last_seen": timestamp
+#         }
+
+#         print(f"[BASELINE] {src_ip} is at {src_mac}")
+
+#     else:
+#         # IP already known
+#         known_mac = arp_table[src_ip]["mac"]
+
+#         if src_mac == known_mac:
+#             # Normal behavior
+#             arp_table[src_ip]["last_seen"] = timestamp
+#         else:
+#             # Change detected (do NOT alert yet)
+#             print("[CHANGE DETECTED]")
+#             print(f"    IP        : {src_ip}")
+#             print(f"    Old MAC   : {known_mac}")
+#             print(f"    New MAC   : {src_mac}")
+#             print("-" * 60)
+
+#             # Update last seen but keep old MAC for now
+#             arp_table[src_ip]["last_seen"] = timestamp
+
+# print(f"[+] Baseline engine started on {INTERFACE}")
+# sniff(iface=INTERFACE, prn=packet_handler, store=False)
