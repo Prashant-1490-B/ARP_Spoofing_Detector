@@ -47,13 +47,13 @@ This tool detects such behavior by **observing ARP packets in real time**.
 
 # EXECUTION FLOW STEP-BY-STEP
 
-• Program starts.
-• main() creates objects.
-• Sniffer begins listening.
-• Packet arrives.
-• packet_handler triggered.
-• Extract IP and MAC.
-• engine.process_reply() called.
-• State updated.
-• Detection rules evaluated.
-• Alerts printed/logged if needed.
+- Program starts.
+- main() creates objects.
+- Sniffer begins listening.
+- Packet arrives.
+- packet_handler triggered.
+- Extract IP and MAC.
+- engine.process_reply() called.
+- State updated.
+- Detection rules evaluated.
+- Alerts printed/logged if needed.
