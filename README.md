@@ -56,4 +56,4 @@ This tool detects such behavior by **observing ARP packets in real time**.
 - engine.process_reply() called.
 - State updated.
 - Detection rules evaluated.
-- Alerts printed/logged if needed.
+- Alerts printed/logged.
