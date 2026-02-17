@@ -1,6 +1,6 @@
 # → Basic detection tests
-from core.state_manager import StateManager
-from core.arp_engine import ARPEngine
+from state_manager import StateManager
+from arp_engine import ARPEngine
 
 def test_baseline():
     state = StateManager()
