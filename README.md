@@ -2,7 +2,6 @@
 
 A real-time **ARP spoofing detection tool** built using **Python** and **Scapy**, designed to monitor local network traffic and identify suspicious **IP ↔ MAC address changes** that indicate **ARP poisoning / Man-in-the-Middle (MITM) attacks**.
 
-This project focuses on **low-level packet analysis**, helping understand how ARP-based attacks work and how they can be detected defensively.
 
 ---
 
