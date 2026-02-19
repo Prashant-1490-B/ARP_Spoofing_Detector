@@ -40,7 +40,7 @@ This tool detects such behavior by **observing ARP packets in real time**.
    - Target IP
    - Target MAC
 5. Prints structured logs for analysis
-6. (Next phase) Detects IP → MAC changes
+
 
 ---
 
