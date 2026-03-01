@@ -1,4 +1,3 @@
-#  → Detection logic
 from datetime import timedelta
 from config import ALERT_THRESHOLD, FLOOD_WINDOW, FLOOD_LIMIT
 from utils.logger import log_alert
