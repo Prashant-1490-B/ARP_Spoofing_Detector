@@ -1,4 +1,3 @@
-# → Entry point (CLI + orchestration)
 from config import INTERFACE, LOG_FILE
 from core.sniffer import Sniffer
 from core.arp_engine import ARPEngine
