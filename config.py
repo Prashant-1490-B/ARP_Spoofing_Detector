@@ -1,5 +1,3 @@
-#  → Configuration & thresholds
-
 INTERFACE = "eth0"
 LOG_FILE = "../logs/alerts.log"
 ALERT_THRESHOLD = 3
