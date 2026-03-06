@@ -274,8 +274,3 @@ This tool is intended **for educational and defensive cybersecurity purposes onl
 
 Do **not run it on networks without authorization**.
 
----
-
-# License
-
-MIT License
