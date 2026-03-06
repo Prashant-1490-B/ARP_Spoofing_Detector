@@ -271,6 +271,5 @@ Planned improvements include:
 ## ⚠️ Disclaimer
 
 This tool is intended **for educational and defensive cybersecurity purposes only**.
-
 Do **not run it on networks without authorization**.
 
