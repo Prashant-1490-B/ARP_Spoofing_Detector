@@ -268,7 +268,7 @@ Planned improvements include:
 
 ---
 
-# Disclaimer
+## ⚠️ Disclaimer
 
 This tool is intended **for educational and defensive cybersecurity purposes only**.
 
