@@ -1,6 +1,6 @@
 # ARP Spoofing Detector
 
-![Python](https://img.shields.io/badge/Python-3.2-blue)
+![Python](https://img.shields.io/badge/Python-v3.2-blue)
 ![Platform](https://img.shields.io/badge/Platform-Linux-green)
 ![Security](https://img.shields.io/badge/Domain-Network%20Security-red)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
