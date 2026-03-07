@@ -3,7 +3,7 @@ from scapy.all import ARP, Ether, sendp
 pkt = Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(
     op=2,
     psrc="192.168.1.1",
-    hwsrc="aa:bb:cc:dd:ee:ff",
+    hwsrc="aa:bb:2c:dd:1e:ff",
     pdst="192.168.1.200"
 )
 
