@@ -268,6 +268,11 @@ Planned improvements include:
 
 ---
 
+# Documentation
+
+[ARP Spoofing TRD.pdf](https://github.com/user-attachments/files/25826760/ARP.Spoofing.TRD.pdf)
+
+
 ## ⚠️ Disclaimer
 
 This tool is intended **for educational and defensive cybersecurity purposes only**.
